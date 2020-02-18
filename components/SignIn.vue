@@ -2,11 +2,11 @@
   <div class="signin_module">
     <p class="signin_module-user">
       <span>用户名</span>
-      <input v-model="username" type="text" placeholder="手机号"/>
+      <input v-model="username" type="text" placeholder="手机号/邮箱"/>
     </p>
     <p class="signin_module-password">
       <span>密码</span>
-      <input v-model="password" type="password" placeholder="密码（6-16位数字与字母组合）"/>
+      <input v-model="password" type="password" placeholder="密码（6-10位数字与字母组合）"/>
     </p>
     <!-- <div class="signin_module-recover">
       <a href="javascript:void(0)">忘记密码？</a>

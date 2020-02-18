@@ -1,20 +1,20 @@
 <template>
   <div class="artical_list_module">
     <ul>
-      <li v-for="(item, index) in list" :key="index" class="artical_list_module-item">
+      <li v-for="(item, index) in articals" :key="index" class="artical_list_module-item">
         <div class="artical_list_module-item-content">
-          <a @click="toArticalPage(item)" class="artical_list_module-item-content-title" href="javasctipr:void(0)">38岁谢娜晒美照，十八姑娘一枝花，和张杰夫妻相十足</a>
-          <p class="artical_list_module-item-content-des">4月6日，谢娜晒出自己十八岁的美照，发文感叹：“哇！十八滴菇凉一朵花，她们说有点像，是么？”谢娜表达了与杰哥结婚这些年来，两人恩爱甜蜜，越来越有</p>
+          <a @click="toArticalPage(item)" class="artical_list_module-item-content-title" href="javasctipr:void(0)">{{ item.title }}</a>
+          <p class="artical_list_module-item-content-des">{{ item.introduction }}</p>
           <p class="artical_list_module-item-content-action">
-            <span>某某人发布于 2019-12-11 1:10</span>
-            <span><i class="icon icon-fangwen"></i>10</span>
-            <span><i class="icon icon-pinglun"></i>20</span>
-            <span><i class="icon icon-zan"></i>30</span>
-            <span><i class="icon icon-fenxiang"></i>40</span>
+            <span>{{ item.author }}发布于 {{ item.createTime | formatTime }}</span>
+            <span><i class="icon icon-fangwen"></i>{{ item.visitor }}</span>
+            <span><i class="icon icon-pinglun"></i>{{ item.commentators }}</span>
+            <span><i class="icon icon-zan"></i>{{ item.star }}</span>
+            <span><i class="icon icon-fenxiang"></i>{{ item.shared }}</span>
           </p>
         </div>
-        <a class="artical_list_module-item-img" href="javasctipr:void(0)">
-          <img :src="articalPic" alt="artical">
+        <a v-if="item.imageUrl" class="artical_list_module-item-img" href="javasctipr:void(0)">
+          <img :src="item.imageUrl" alt="artical">
         </a>
       </li>
     </ul>
@@ -22,21 +22,21 @@
 </template>
 
 <script>
-import articalPic from '@/assets/imgs/artical/1.jpg'
 export default {
   name: 'ArticalList',
-  data () {
-    return {
-      articalPic: articalPic,
-      list: 10
+  props: {
+    articals: {
+      type: Array,
+      default () {
+        return []
+      }
     }
   },
   methods: {
     toArticalPage (item) {
-      console.log(item)
-      this.$router.push('/artical')
-      // const routeUrl = this.$router.resolve({ name: 'Artical' })
-      // window.open(routeUrl.href, '_blank')
+      // this.$router.push(`/artical?id=${item._id}`)
+      const routeUrl = this.$router.resolve({ path: `/artical?id=${item._id}` })
+      window.open(routeUrl.href, '_blank')
     }
   }
 }

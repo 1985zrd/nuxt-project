@@ -1,6 +1,6 @@
 <template>
   <div class="copy_right">
-    <p class="copy_right-p">Copyright (c) 2016  京ICP备16065949号-1</p>
+    <p class="copy_right-p">Copyright (c) 2020  京ICP备20003692号</p>
     <p class="copy_right-p">网站仅用于学习交流</p>
     <p class="copy_right-p">如有不良信息，请联系：rd_1985@163.com</p>
   </div>

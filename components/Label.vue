@@ -1,7 +1,7 @@
 <template>
   <div class="label_module">
     <ul>
-      <li v-for="(item, index) in labelList" :key="index" :class="item.value === activeIndex ? 'active' : ''" @click="setActiveIndex(item)">{{ item.label }}</li>
+      <li v-for="(item, index) in list" :key="index" :class="index === activeIndex ? 'active' : ''" @click="setActiveIndex(index)">{{ item.name }}</li>
     </ul>
   </div>
 </template>
@@ -9,44 +9,23 @@
 <script>
 export default {
   name: 'Label',
-  data () {
-    return {
-      labelList: [
-        {
-          value: 0,
-          label: '推荐'
-        },
-        {
-          value: 1,
-          label: 'web前端'
-        },
-        {
-          value: 2,
-          label: 'nodejs'
-        },
-        {
-          value: 3,
-          label: '摄影'
-        },
-        {
-          value: 4,
-          label: '旅游'
-        },
-        {
-          value: 5,
-          label: '电影'
-        },
-        {
-          value: 6,
-          label: '娱乐'
-        }
-      ],
-      activeIndex: 0
+  props: {
+    list: {
+      type: Array,
+      default () {
+        return []
+      }
+    }
+  },
+  computed: {
+    activeIndex: function () {
+      return this.$store.state.activeIndex
     }
   },
   methods: {
-    setActiveIndex (item) {
-      this.activeIndex = item.value
+    setActiveIndex (index) {
+      this.$router.push('/')
+      this.$store.commit('setActiveIndex', index)
     }
   }
 }
@@ -76,7 +55,7 @@ export default {
       padding: 0 12px;
       cursor: pointer;
       &:hover {
-        text-decoration: underline;
+        color: #ff481c;
       }
     }
   }

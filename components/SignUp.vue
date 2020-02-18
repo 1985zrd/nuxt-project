@@ -2,19 +2,15 @@
   <div class="signup_module">
     <p class="signup_module-user">
       <span>用户名</span>
-      <input v-model="username" type="text" placeholder="手机号"/>
-    </p>
-    <p class="signup_module-email">
-      <span>邮箱</span>
-      <input v-model="email" type="password" placeholder="邮箱"/>
+      <input v-model="username" type="text" placeholder="手机号/邮箱"/>
     </p>
     <p class="signup_module-password">
       <span>密码</span>
-      <input v-model="password" type="password" placeholder="密码（6-16位数字与字母组合）"/>
+      <input v-model="password" type="password" placeholder="密码（6-10位数字与字母组合）"/>
     </p>
     <p class="signup_module-password">
       <span>确认密码</span>
-      <input v-model="confirmPassword" type="password" placeholder="密码（6-16位数字与字母组合）"/>
+      <input v-model="confirmPassword" type="password" placeholder="密码（6-10位数字与字母组合）"/>
     </p>
     <!-- <div class="signup_module-recover">
       <a href="javascript:void(0)">忘记密码？</a>
@@ -28,7 +24,6 @@ export default {
   data () {
     return {
       username: '',
-      email: '',
       password: '',
       confirmPassword: ''
     }

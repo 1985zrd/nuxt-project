@@ -3,7 +3,7 @@
     <span class="banner_module-prev" @click="move('prev')"><i class="icon icon-back"></i></span>
     <span class="banner_module-next" @click="move('next')"><i class="icon icon-next1"></i></span>
     <transition-group tag="ul" name="move" class="banner_module-content">
-      <li v-show="index === activeIndex" v-for="(item, index) in list" :key="index">
+      <li v-show="index === activeIndex" v-for="(item, index) in list" :key="item.url">
         <img :src="item.url" alt="banner">
       </li>
     </transition-group>

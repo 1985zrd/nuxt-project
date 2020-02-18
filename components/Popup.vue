@@ -7,7 +7,7 @@
         <p slot="content">这里是内容...</p>
       </slot>
     </div>
-    <div class="popup_module-foot">
+    <div v-show="footer" class="popup_module-foot">
       <button @click="back('cancel')">取消</button>
       <button @click="back('confirm')">确定</button>
     </div>
@@ -25,6 +25,10 @@ export default {
     show: {
       type: Boolean,
       default: false
+    },
+    footer: {
+      type: Boolean,
+      default: true
     }
   },
   methods: {
@@ -40,7 +44,7 @@ export default {
   position: fixed;
   top: 12%;
   left: 50%;
-  z-index: 999;
+  z-index: 9999;
   width: 500px;
   margin-left: -200px;
   border-radius: 6px;
