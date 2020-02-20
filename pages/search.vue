@@ -29,7 +29,11 @@ export default {
       const articals = await getArtivallist({
         where: {
           title: searchValue
-        }
+        },
+        include: 'author',
+        includeword: {
+          username: 1
+        },
       })
       this.articals = articals.data.data
     })

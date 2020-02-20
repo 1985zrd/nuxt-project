@@ -74,6 +74,10 @@ export default {
         where: {
           category: this.categories.length ? (this.categories[this.activeIndex].name === '推荐' ? '' : this.categories[this.activeIndex]._id) : ''
         },
+        include: 'author',
+        includeword: {
+          username: 1
+        },
         limit: this.pageSize,
         skip: (this.pageNum - 1) * this.pageSize
       })
@@ -85,7 +89,11 @@ export default {
         limit: 5,
         order: {
           star: -1
-        }
+        },
+        include: 'author',
+        includeword: {
+          username: 1
+        },
       })
       this.zanList = zanList.data.data
     },

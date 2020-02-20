@@ -6,7 +6,7 @@
           <a @click="toArticalPage(item)" class="artical_list_module-item-content-title" href="javasctipr:void(0)">{{ item.title }}</a>
           <p class="artical_list_module-item-content-des">{{ item.introduction }}</p>
           <p class="artical_list_module-item-content-action">
-            <span>{{ item.author }}发布于 {{ item.createTime | formatTime }}</span>
+            <span>{{ item.author ? item.author.username : '' }}发布于 {{ item.createTime | formatTime }}</span>
             <span><i class="icon icon-fangwen"></i>{{ item.visitor }}</span>
             <span><i class="icon icon-pinglun"></i>{{ item.commentators }}</span>
             <span><i class="icon icon-zan"></i>{{ item.star }}</span>
@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import { checkMobile } from '@/utils/'
 export default {
   name: 'ArticalList',
   props: {
