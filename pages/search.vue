@@ -15,6 +15,7 @@ import { getArtivallist } from '@/api'
 import { eventBus } from '@/utils'
 export default {
   name: 'Container',
+  layout: 'search',
   components: {
     'v-artical': ArticalList
   },

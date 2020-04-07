@@ -4,7 +4,7 @@ import ClientOnly from 'vue-client-only'
 import NoSsr from 'vue-no-ssr'
 import { createRouter } from './router.js'
 import NuxtChild from './components/nuxt-child.js'
-import NuxtError from './components/nuxt-error.vue'
+import NuxtError from '../layouts/error.vue'
 import Nuxt from './components/nuxt.js'
 import App from './App.js'
 import { setContext, getLocation, getRouteData, normalizeError } from './utils'
@@ -17,7 +17,8 @@ import nuxt_plugin_vuemavoneditor_e5e1de58 from 'nuxt_plugin_vuemavoneditor_e5e1
 import nuxt_plugin_elementui_d905880e from 'nuxt_plugin_elementui_d905880e' // Source: ../plugins/element-ui (mode: 'all')
 import nuxt_plugin_router_aacea2cc from 'nuxt_plugin_router_aacea2cc' // Source: ../plugins/router.js (mode: 'all')
 import nuxt_plugin_filter_6c04580b from 'nuxt_plugin_filter_6c04580b' // Source: ../plugins/filter.js (mode: 'all')
-import nuxt_plugin_localStorage_8a74121a from 'nuxt_plugin_localStorage_8a74121a' // Source: ../plugins/localStorage.js (mode: 'client')
+import nuxt_plugin_http_b088180a from 'nuxt_plugin_http_b088180a' // Source: ../plugins/http.js (mode: 'all')
+import nuxt_plugin_resetHtmlFontSize_76549101 from 'nuxt_plugin_resetHtmlFontSize_76549101' // Source: ../plugins/resetHtmlFontSize.js (mode: 'client')
 
 // Component: <ClientOnly>
 Vue.component(ClientOnly.name, ClientOnly)
@@ -194,8 +195,12 @@ async function createApp (ssrContext) {
     await nuxt_plugin_filter_6c04580b(app.context, inject)
   }
 
-  if (process.client && typeof nuxt_plugin_localStorage_8a74121a === 'function') {
-    await nuxt_plugin_localStorage_8a74121a(app.context, inject)
+  if (typeof nuxt_plugin_http_b088180a === 'function') {
+    await nuxt_plugin_http_b088180a(app.context, inject)
+  }
+
+  if (process.client && typeof nuxt_plugin_resetHtmlFontSize_76549101 === 'function') {
+    await nuxt_plugin_resetHtmlFontSize_76549101(app.context, inject)
   }
 
   // If server-side, wait for async component to be resolved first

@@ -32,7 +32,9 @@ export default {
     { src: '@/plugins/element-ui', ssr: true },
     { src: '@/plugins/router.js', ssr: true },
     { src: '@/plugins/filter.js', ssr: true },
-    { src: '@/plugins/localStorage.js', ssr: false }
+    { src: '@/plugins/http.js', ssr: true },
+    { src: '@/plugins/resetHtmlFontSize.js', ssr: false },
+    // { src: '@/plugins/localStorage.js', ssr: false }
   ],
   /*
   ** Nuxt.js dev-modules
@@ -42,7 +44,7 @@ export default {
   /*
   ** Nuxt.js modules
   */
-  modules: ['@nuxtjs/axios'],
+  modules: ['@nuxtjs/axios', '@nuxtjs/component-cache'],
   axios: {
     proxy: true
   },
@@ -59,10 +61,16 @@ export default {
   ** Build configuration
   */
   build: {
+    vender: ['axios'],
     babel: {
       plugins: [
         ["component", {"libraryName": "element-ui", "styleLibraryName": "theme-chalk"}]
       ]
+    },
+    postcss: {
+      'postcss-px2rem': {
+        remUnit: 75
+      }
     },
     /*
     ** You can extend webpack config here

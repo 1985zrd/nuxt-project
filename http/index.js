@@ -3,7 +3,7 @@ import globalConfig from '@/config/index'
 import loading from './loading'
 import { Message } from 'element-ui'
 
-const baseURL = ''
+const baseURL = 'http://localhost:9000'
 
 axios.defaults.withCredentials = true
 
@@ -13,7 +13,7 @@ const $request = axios.create({
 })
 
 $request.interceptors.request.use(config => {
-  console.log(config)
+  // console.log(config)
   config.headers['Token'] = ''
   loading.start() // 如果不需要loading，可以不用
   return config
@@ -59,9 +59,10 @@ const getData = (url, data = {}, method = 'GET', headers, responseType = 'json')
     cancelToken: cancelToken()
   }
   if (type === 'GET' || type === 'DELETE') {
-    if (!!window.ActiveXObject || 'ActiveXObject' in window) {
-      data.t = new Date().getTime()
-    }
+    // if (!!window.ActiveXObject || 'ActiveXObject' in window) {
+    //   data.t = new Date().getTime()
+    // }
+    data.t = new Date().getTime()
     requestConfig.params = data
   } else {
     requestConfig.data = data
