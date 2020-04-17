@@ -10,7 +10,7 @@
         <a @click="toNextPage('write')" class="header_module-write" href="javascript:void(0)" ><i class="icon icon-xiewenzhang"></i>写文章</a>
         <a v-show="!isLogin" @click.stop="signUpHander" class="header_module-signup" href="javascript:void(0)" >注册</a>
         <a v-show="!isLogin" @click.stop="signInHander" class="header_module-signin" href="javascript:void(0)" >登录</a>
-        <a v-show="isLogin" class="header_module-touxiang" href="javascript:void(0)" ><i class="icon icon-touxiang"></i>欢迎：{{ username }}</a>
+        <a @click="toNextPage('user')" v-show="isLogin" class="header_module-touxiang" href="javascript:void(0)" ><i class="icon icon-touxiang"></i>欢迎：{{ username }}</a>
         <el-button v-show="isLogin" @click="setUp.isShow=true">
           <i class="el-icon-s-tools"></i>设置
         </el-button>

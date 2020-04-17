@@ -3,16 +3,16 @@ import globalConfig from '@/config/index'
 import loading from '@/http/loading'
 import { Message } from 'element-ui'
 
-const baseURL = 'http://localhost:9000'
+export default ({app}, inject) => {
 
-export default (app) => {
+  app.$baseUrl = globalConfig.baseUrl
   
   let axios = app.$axios
 
   axios.defaults.withCredentials = true
 
   const $request = axios.create({
-    baseURL: app.isDev ? baseURL : '',
+    baseURL: '',
     timeout: 1000*60
   })
   
@@ -74,6 +74,7 @@ export default (app) => {
     return $request(requestConfig)
   }
   
+  inject('getData', getData)
   app.$getData = getData
 
 }

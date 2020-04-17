@@ -5,14 +5,27 @@
         <h2>用户详情页面</h2>
       </div>
       <div class="container_module-right">
-        <div>这里放用户统计</div>
+        <Userinfo />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Userinfo from '@/components/user/Userinfo'
 export default {
+  components: {
+    Userinfo
+  },
+  mounted () {
+    this.getUserInfo()
+  },
+  methods: {
+    async getUserInfo () {
+      const res = await this.$getData('/api/user/userinfo', {}, 'POST')
+      console.log(res)
+    }
+  }
 }
 </script>
 

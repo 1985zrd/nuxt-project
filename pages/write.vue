@@ -2,7 +2,7 @@
   <div class="container_module">
     <div class="container_module-wrap">
       <div class="container_module-left write_artical">
-        <h3 class="write_artical-title">开始/编辑一篇文章</h3>
+        <h3 class="write_artical-title">开始/编辑文章</h3>
         <el-form ref="form" :model="form" :rules="rules" label-width="80px">
           <el-form-item label="标题：" prop="title">
             <el-input v-model="form.title" placeholder="请输入标题" maxlength="20" show-word-limit></el-input>
@@ -59,6 +59,14 @@ import { upload, saveArtival, getCategorylist } from '@/api'
 export default {
   components: {
     Markdown
+  },
+  head () {
+    return {
+      title: '添加/编辑文章',
+      meta: [
+        { hid: 'description', name: 'description', content: '写一篇文章吧，让我们在总结中前进。' }
+      ]
+    }
   },
   data () {
     return {

@@ -3,7 +3,7 @@ import globalConfig from '@/config/index'
 import loading from './loading'
 import { Message } from 'element-ui'
 
-const baseURL = 'http://localhost:9000'
+const baseURL = ''
 
 axios.defaults.withCredentials = true
 

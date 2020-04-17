@@ -33,13 +33,18 @@ import Markdown from '@/components/common/markdown'
 import SubmitComment from '@/components/comment/SubmitComment'
 import CommentList from '@/components/comment/CommentList'
 import ZanList from '@/components/ZanList'
-import { getArticalDetail, getCommentList, getArtivallist, zanArtical } from '@/api'
+// import { getArticalDetail, getCommentList, getArtivallist, zanArtical } from '@/api'
+import { getDetailUrl, getArticalListUrl, getCommentListUrl, zanArticalUrl } from '@/api/url'
 export default {
   components: {
     Markdown,
     SubmitComment,
     CommentList,
     ZanList
+  },
+  validate ({ query }) {
+    if (!query.id) throw new Error('未找到ID')
+    return true
   },
   data () {
     return {
@@ -54,7 +59,42 @@ export default {
   mounted () {
     const id = this.$route.query.id
     id && this.getArtical(id)
+    // id && this.getCommentList()
   },
+  // async asyncData (ctx) {
+  //   const id = ctx.query.id
+
+  //   if (!id) return;
+
+  //   const res = await ctx.app.$getData(ctx.app.$baseUrl + getDetailUrl, {
+  //     id: id
+  //   })
+
+  //   const articals = await ctx.app.$getData(ctx.app.$baseUrl + getArticalListUrl, {
+  //     where: {
+  //       author: res.data.author._id
+  //     },
+  //     include: 'author',
+  //     includeword: {
+  //       username: 1
+  //     },
+  //     limit: 5
+  //   }, 'POST')
+
+  //   const comments = await ctx.app.$getData(ctx.app.$baseUrl + getCommentListUrl, {
+  //     where: {
+  //       artical: id
+  //     },
+  //     limit: 10,
+  //     skip: 0
+  //   }, 'POST')
+
+  //   return {
+  //     artical: res.data,
+  //     authorArtical: articals.data.data,
+  //     list: comments.data.data
+  //   }
+  // },
   methods: {
     async zanHandler () {
       if (this.artical.isAlreadyStar) {
@@ -63,25 +103,25 @@ export default {
         })
         return
       }
-      let res = await zanArtical({
+      let res = await this.$getData(zanArticalUrl, {
         id: this.artical._id
-      })
+      }, 'POST')
       if (res.code === 200) {
         this.$message({
           message: res.message
         })
-        this.getArtical(this.artical._id)
+        // this.getArtical(this.artical._id)
+        this.artical.star += 1
       }
     },
     async getArtical (id) {
-      const res = await getArticalDetail({
+      const res = await this.$getData(getDetailUrl, {
         id: id
       })
       this.artical = res.data
-      this.$nextTick(() => {
-        this.getCommentList()
-        this.getAotherArtical()
-      })
+      // this.$nextTick(() => {
+      //   this.getAotherArtical()
+      // })
     },
     async getAotherArtical () {
       let res = await getArtivallist({
@@ -97,13 +137,13 @@ export default {
       this.authorArtical = res.data.data
     },
     async getCommentList () {
-      const res = await getCommentList({
+      const res = await this.$getData(getCommentListUrl, {
         where: {
-          artical: this.artical._id
+          artical: this.$route.query.id
         },
         limit: this.pageSize,
         skip: (this.pageNum - 1) * this.pageSize
-      })
+      }, 'POST')
       this.list = res.data.data
       this.total = res.data.total
     },

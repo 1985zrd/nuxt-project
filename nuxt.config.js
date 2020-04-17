@@ -34,7 +34,7 @@ export default {
     { src: '@/plugins/filter.js', ssr: true },
     { src: '@/plugins/http.js', ssr: true },
     { src: '@/plugins/resetHtmlFontSize.js', ssr: false },
-    // { src: '@/plugins/localStorage.js', ssr: false }
+    { src: '@/plugins/localStorage.js', ssr: false }
   ],
   /*
   ** Nuxt.js dev-modules
@@ -61,10 +61,13 @@ export default {
   ** Build configuration
   */
   build: {
-    vender: ['axios'],
+    // analyze: true, // 分析并可视化构建后的打包文件
+    cache: true,
+    // extractCSS: true,
+    vender: ['axios', 'element-ui'],
     babel: {
       plugins: [
-        ["component", {"libraryName": "element-ui", "styleLibraryName": "theme-chalk"}]
+        ["component", { "libraryName": "element-ui", "styleLibraryName": "theme-chalk" }]
       ]
     },
     postcss: {
@@ -75,7 +78,7 @@ export default {
     /*
     ** You can extend webpack config here
     */
-    extend (config, ctx) {
+    extend(config, ctx) {
     }
   }
 }

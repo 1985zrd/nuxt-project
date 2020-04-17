@@ -1,7 +1,7 @@
 <template>
   <div class="label_module">
     <ul>
-      <li v-for="(item, index) in list" :key="index" :class="index === activeIndex ? 'active' : ''" @click="setActiveIndex(index)">{{ item.name }}</li>
+      <li v-for="(item, index) in list" :key="item._id" :class="index === activeIndex ? 'active' : ''" @click="setActiveIndex(index, item)">{{ item.name }}</li>
     </ul>
   </div>
 </template>
@@ -23,8 +23,8 @@ export default {
     }
   },
   methods: {
-    setActiveIndex (index) {
-      this.$router.push('/')
+    setActiveIndex (index, item) {
+      // this.$router.push(`/${item.path}`)
       this.$store.commit('setActiveIndex', index)
     }
   }

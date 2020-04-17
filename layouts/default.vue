@@ -30,9 +30,9 @@ export default {
     }
   },
   mounted () {
-    if (!this.categories.length) {
-      this.getCategory()
-    }
+    // if (!this.categories.length) {
+    //   this.getCategory()
+    // }
   },
   methods: {
     async getCategory () {
