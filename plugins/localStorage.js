@@ -10,6 +10,7 @@ export default ({store}) => {
         // demo: {
         //   title: val.demo.title
         // }
+        token: val.token,
         isLogin: val.isLogin,
         username: val.username,
         categories: val.categories

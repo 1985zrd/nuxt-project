@@ -4,6 +4,7 @@ import loading from '@/http/loading'
 import { Message } from 'element-ui'
 
 export default ({app}, inject) => {
+  console.log(app)
 
   app.$baseUrl = globalConfig.baseUrl
   
@@ -18,7 +19,8 @@ export default ({app}, inject) => {
   
   $request.interceptors.request.use(config => {
     // console.log(config)
-    config.headers['Token'] = ''
+    const token = app.store.state.token || ''
+    config.headers.common['Authorization'] = 'Bearer ' + token
     loading.start() // 如果不需要loading，可以不用
     return config
   }, error => {

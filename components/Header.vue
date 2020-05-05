@@ -17,7 +17,7 @@
       </div>
     </div>
     <popup v-transform @click.native.stop :show="popup.isShow" :title="popup.title" @callback="popupBack">
-      <component ref="sign" :is="currentComponent" slot="content"></component>
+      <component ref="sign" :is="currentComponent" slot="content" @callback="popupBack"></component>
     </popup>
     <popup v-transform @click.native.stop :show="setUp.isShow" :title="setUp.title" @callback="setUpBack" :footer="false">
       <template slot="content">
@@ -122,6 +122,7 @@ export default {
         if (res.code === 200) {
           this.$store.commit('setLogin', true)
           this.$store.commit('setUsername', res.data.username)
+          this.$store.commit('setToken', res.data.token)
           this.popup.isShow = false
         }
         // console.log(this.$refs.sign.username)

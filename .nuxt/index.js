@@ -4,7 +4,7 @@ import ClientOnly from 'vue-client-only'
 import NoSsr from 'vue-no-ssr'
 import { createRouter } from './router.js'
 import NuxtChild from './components/nuxt-child.js'
-import NuxtError from '..\\layouts\\error.vue'
+import NuxtError from '../layouts/error.vue'
 import Nuxt from './components/nuxt.js'
 import App from './App.js'
 import { setContext, getLocation, getRouteData, normalizeError } from './utils'
@@ -12,14 +12,14 @@ import { createStore } from './store.js'
 
 /* Plugins */
 
-import nuxt_plugin_axios_1d903d49 from 'nuxt_plugin_axios_1d903d49' // Source: .\\axios.js (mode: 'all')
-import nuxt_plugin_vuemavoneditor_e5e1de58 from 'nuxt_plugin_vuemavoneditor_e5e1de58' // Source: ..\\plugins\\vue-mavon-editor (mode: 'all')
-import nuxt_plugin_elementui_d905880e from 'nuxt_plugin_elementui_d905880e' // Source: ..\\plugins\\element-ui (mode: 'all')
-import nuxt_plugin_router_aacea2cc from 'nuxt_plugin_router_aacea2cc' // Source: ..\\plugins\\router.js (mode: 'all')
-import nuxt_plugin_filter_6c04580b from 'nuxt_plugin_filter_6c04580b' // Source: ..\\plugins\\filter.js (mode: 'all')
-import nuxt_plugin_http_b088180a from 'nuxt_plugin_http_b088180a' // Source: ..\\plugins\\http.js (mode: 'all')
-import nuxt_plugin_resetHtmlFontSize_76549101 from 'nuxt_plugin_resetHtmlFontSize_76549101' // Source: ..\\plugins\\resetHtmlFontSize.js (mode: 'client')
-import nuxt_plugin_localStorage_8a74121a from 'nuxt_plugin_localStorage_8a74121a' // Source: ..\\plugins\\localStorage.js (mode: 'client')
+import nuxt_plugin_axios_4342bd00 from 'nuxt_plugin_axios_4342bd00' // Source: ./axios.js (mode: 'all')
+import nuxt_plugin_vuemavoneditor_e5e1de58 from 'nuxt_plugin_vuemavoneditor_e5e1de58' // Source: ../plugins/vue-mavon-editor (mode: 'all')
+import nuxt_plugin_elementui_d905880e from 'nuxt_plugin_elementui_d905880e' // Source: ../plugins/element-ui (mode: 'all')
+import nuxt_plugin_router_aacea2cc from 'nuxt_plugin_router_aacea2cc' // Source: ../plugins/router.js (mode: 'all')
+import nuxt_plugin_filter_6c04580b from 'nuxt_plugin_filter_6c04580b' // Source: ../plugins/filter.js (mode: 'all')
+import nuxt_plugin_http_b088180a from 'nuxt_plugin_http_b088180a' // Source: ../plugins/http.js (mode: 'all')
+import nuxt_plugin_resetHtmlFontSize_76549101 from 'nuxt_plugin_resetHtmlFontSize_76549101' // Source: ../plugins/resetHtmlFontSize.js (mode: 'client')
+import nuxt_plugin_localStorage_8a74121a from 'nuxt_plugin_localStorage_8a74121a' // Source: ../plugins/localStorage.js (mode: 'client')
 
 // Component: <ClientOnly>
 Vue.component(ClientOnly.name, ClientOnly)
@@ -66,8 +66,6 @@ async function createApp (ssrContext) {
   // here we inject the router and store to all child components,
   // making them available everywhere as `this.$router` and `this.$store`.
   const app = {
-    head: {"meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1, user-scalable=no, shrink-to-fit=no"},{"http-equiv":"X-UA-Compatible","content":"IE-edge"},{"hid":"description","name":"description","content":"My glorious Nuxt.js project"}],"title":"春香","link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"}],"style":[],"script":[]},
-
     store,
     router,
     nuxt: {
@@ -97,10 +95,7 @@ async function createApp (ssrContext) {
         err = err || null
         app.context._errored = Boolean(err)
         err = err ? normalizeError(err) : null
-        let nuxt = app.nuxt // to work with @vue/composition-api, see https://github.com/nuxt/nuxt.js/issues/6517#issuecomment-573280207
-        if (this) {
-          nuxt = this.nuxt || this.$options.nuxt
-        }
+        const nuxt = this.nuxt || this.$options.nuxt
         nuxt.dateErr = Date.now()
         nuxt.err = err
         // Used in src/server.js
@@ -144,7 +139,7 @@ async function createApp (ssrContext) {
       throw new Error('inject(key, value) has no key provided')
     }
     if (value === undefined) {
-      throw new Error(`inject('${key}', value) has no value provided`)
+      throw new Error('inject(key, value) has no value provided')
     }
 
     key = '$' + key
@@ -181,8 +176,8 @@ async function createApp (ssrContext) {
 
   // Plugin execution
 
-  if (typeof nuxt_plugin_axios_1d903d49 === 'function') {
-    await nuxt_plugin_axios_1d903d49(app.context, inject)
+  if (typeof nuxt_plugin_axios_4342bd00 === 'function') {
+    await nuxt_plugin_axios_4342bd00(app.context, inject)
   }
 
   if (typeof nuxt_plugin_vuemavoneditor_e5e1de58 === 'function') {

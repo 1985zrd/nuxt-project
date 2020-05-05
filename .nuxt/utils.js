@@ -21,23 +21,6 @@ export function interopDefault (promise) {
   return promise.then(m => m.default || m)
 }
 
-export function hasFetch(vm) {
-  return vm.$options && typeof vm.$options.fetch === 'function' && !vm.$options.fetch.length
-}
-export function getChildrenComponentInstancesUsingFetch(vm, instances = []) {
-  const children = vm.$children || []
-  for (const child of children) {
-    if (child.$fetch) {
-      instances.push(child)
-      continue; // Don't get the children since it will reload the template
-    }
-    if (child.$children) {
-      getChildrenComponentInstancesUsingFetch(child, instances)
-    }
-  }
-  return instances
-}
-
 export function applyAsyncData (Component, asyncData) {
   if (
     // For SSR, we once all this function without second param to just apply asyncData
@@ -77,7 +60,7 @@ export function sanitizeComponent (Component) {
     Component._Ctor = Component
     Component.extendOptions = Component.options
   }
-  // If no component name defined, set file path as name, (also fixes #5703)
+  // For debugging purpose
   if (!Component.options.name && Component.options.__file) {
     Component.options.name = Component.options.__file
   }
@@ -604,13 +587,4 @@ function formatQuery (query) {
     }
     return key + '=' + val
   }).filter(Boolean).join('&')
-}
-
-export function addLifecycleHook(vm, hook, fn) {
-  if (!vm.$options[hook]) {
-    vm.$options[hook] = []
-  }
-  if (!vm.$options[hook].includes(fn)) {
-    vm.$options[hook].push(fn)
-  }
 }

@@ -2,31 +2,31 @@ import Vue from 'vue'
 
 import {
   getMatchedComponentsInstances,
-  getChildrenComponentInstancesUsingFetch,
   promisify,
-  globalHandleError,
-  sanitizeComponent
+  globalHandleError
 } from './utils'
 
-import NuxtError from '..\\layouts\\error.vue'
+import NuxtError from '../layouts/error.vue'
 import NuxtLoading from './components/nuxt-loading.vue'
 import NuxtBuildIndicator from './components/nuxt-build-indicator'
 
-import '..\\node_modules\\_normalize.css@8.0.1@normalize.css\\normalize.css'
+import '../node_modules/normalize.css/normalize.css'
 
-import '..\\assets\\font\\iconfont.css'
+import '../assets/font/iconfont.css'
 
-import '..\\assets\\css\\main.css'
+import '../assets/css/main.css'
 
-import '..\\assets\\sass\\common.scss'
+import '../assets/sass/common.scss'
 
-import _77180f1e from '..\\layouts\\blank.vue'
-import _6f6c098b from '..\\layouts\\default.vue'
-import _eeecbdc4 from '..\\layouts\\search.vue'
+import _77180f1e from '../layouts/blank.vue'
+import _6f6c098b from '../layouts/default.vue'
+import _eeecbdc4 from '../layouts/search.vue'
 
-const layouts = { "_blank": sanitizeComponent(_77180f1e),"_default": sanitizeComponent(_6f6c098b),"_search": sanitizeComponent(_eeecbdc4) }
+const layouts = { "_blank": _77180f1e,"_default": _6f6c098b,"_search": _eeecbdc4 }
 
 export default {
+  head: {"meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1, user-scalable=no, shrink-to-fit=no"},{"http-equiv":"X-UA-Compatible","content":"IE-edge"},{"hid":"description","name":"description","content":"My glorious Nuxt.js project"}],"title":"春香","link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"}],"style":[],"script":[]},
+
   render (h, props) {
     const loadingEl = h('NuxtLoading', { ref: 'loading' })
 
@@ -79,10 +79,8 @@ export default {
     isOnline: true,
 
     layout: null,
-    layoutName: '',
-
-    nbFetching: 0
-    }),
+    layoutName: ''
+  }),
 
   beforeCreate () {
     Vue.util.defineReactive(this, 'nuxt', this.$options.nuxt)
@@ -115,10 +113,6 @@ export default {
   computed: {
     isOffline () {
       return !this.isOnline
-    },
-
-      isFetching() {
-      return this.nbFetching > 0
     }
   },
 
@@ -147,17 +141,8 @@ export default {
       const promises = pages.map((page) => {
         const p = []
 
-        // Old fetch
-        if (page.$options.fetch && page.$options.fetch.length) {
+        if (page.$options.fetch) {
           p.push(promisify(page.$options.fetch, this.context))
-        }
-        if (page.$fetch) {
-          p.push(page.$fetch())
-        } else {
-          // Get all component instance to call $fetch
-          for (const component of getChildrenComponentInstancesUsingFetch(page.$vnode.componentInstance)) {
-            p.push(component.$fetch())
-          }
         }
 
         if (page.$options.asyncData) {
@@ -176,7 +161,7 @@ export default {
       try {
         await Promise.all(promises)
       } catch (error) {
-        this.$loading.fail(error)
+        this.$loading.fail()
         globalHandleError(error)
         this.error(error)
       }
@@ -186,7 +171,7 @@ export default {
     errorChanged () {
       if (this.nuxt.err && this.$loading) {
         if (this.$loading.fail) {
-          this.$loading.fail(this.nuxt.err)
+          this.$loading.fail()
         }
         if (this.$loading.finish) {
           this.$loading.finish()
